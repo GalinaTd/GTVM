@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Draft. Array methods. Selection sort.</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+</head>
+<style>
+    .container {
+        display: block;
+        width: 400px;
+    }
+</style>
+
+<body>
+</body>
+<script>
+    'use strict';
+    const arr = [1, -10, 5, -2];
+    console.log("Reduce. Input array:");
+    console.log(arr);
+
+    //sum elements of array
+    const sumArr = arr.reduce((a, b) => a + b);
+    console.log("Sum elements of array = " + sumArr);
+
+    //console.log(negative);
+    //Sort ascending   
+    console.log("Method sort(). Input array: ");
+    const arr2 = [6, 1, 8, 0];
+    console.log(arr2)
+    const sortAsc = arr2.sort((a, b) => a - b);
+    console.log("Output array: ");
+    console.log(sortAsc)
+
+    //10, 5, 3, 2, 6, 0  => selection sort
+    //0 => 0, |5, 3, 2, 6, 10
+    //2 => 0, 2 | 3, 5, 6, 10
+    //3 => 0, 2, 3 | 5, 6, 10
+    //5 => 0, 2, 3  5 | 6, 10
+    //6 => 0, 2, 3  5 , 6| 10
+    //10 =>0, 2, 3  5 , 6, 10
+
+    // 10, 5, 3, 2, 6, 0 => bubble sort
+    // 10 5 3 2 6 0
+    // 5  3 2 6 0 10 
+    // 3  2 5 0 6 10
+    // 2  3 0 5 6 10
+    // 2  0 3 5 6 10
+    // 0  2 3 5 6 10
+
+    const arrForSort = [10, 5, 3, 2, 6, 0, 7, 8];
+    console.log("Selection sort. Input array:");
+    console.log(arrForSort);
+    function selectionSort(inputArr) {
+        let n = inputArr.length;
+        for (let i = 0; i < n; i++) {
+            // Finding the smallest number on the right side of the array
+            let min = i;
+            for (let j = i; j < n; j++) {
+                if (inputArr[j] < inputArr[min]) {
+                    min = j;
+                }
+            }
+            if (min != i) {
+                // Replacing elements
+                let tmp = inputArr[i];
+                inputArr[i] = inputArr[min];
+                inputArr[min] = tmp;
+            }
+        }
+        return inputArr;
+    }
+    console.log("Output array: ")
+    console.log(selectionSort(arrForSort))
+
+    //reverse array
+    //const arrRev = arr.reverse();
+    //console.log(arrRev)
+
+    function myReverse(arr) {
+        let arrNew = [];
+        for (let i = arr.length - 1; i >= 0; i--) {
+            arrNew.push(arr[i])
+        }
+        return arrNew
+    }
+    //console.log(myReverse(arr2));
+
+    //get new array from current elements divide by 2
+    const arr4 = [10, 5, 3, 8];
+
+    const arr5 = arr4.map(value => value / 2)
+    //console.log(arr5)
+
+    //create array from string just even numbers 
+    const str = "1,4,6,3,0";
+    let strToArr = [];
+
+    str.split(",").forEach(value => {
+        if (Number(value % 2) === 0) {
+            strToArr.push(value)
+        }
+    });
+    //console.log(strToArr)
+    //Given an array of integers nums and an integer target, return indices of the two numbers 
+    //such that they add up to target.
+    let nums = [3, 2, 3];
+
+    var twoSum = function (nums, target) {
+        for (let i = 0; i < nums.length; i++) {
+            const diff = target - nums[i];
+            const indexOfNum = nums.indexOf(diff);
+
+            if (indexOfNum !== -1 && indexOfNum !== i) {
+                return [i, indexOfNum];
+            }
+        }
+    }
+    //console.log(twoSum(nums, 6))    
+
+    function getSmallestInd(arr) {
+        let smallest = arr[0];
+        let smallestInd = 0;
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] < smallest) {
+                smallest = arr[i];
+                smallestInd = i;
+            }
+        }
+        return smallestInd;
+    }
+
+    //get the negative elements from array
+    let negative = [];
+    arr.forEach(value => {
+        if (value < 0) {
+            negative.push(value);
+        }
+    })
+
+</script>

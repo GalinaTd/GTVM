@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Landscape</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .images {
+        display: flex;
+        gap: 10px;
+        flex: 1 1 260px;
+        padding: 10px;
+        justify-content: center;
+
+
+    }
+
+    .image {
+        width: 260px;
+        height: 260px;
+    }
+
+    @media screen and (max-width: 950px) {
+        .images {
+            flex-wrap: wrap;
+
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .images {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    .fibo {
+        font-size: 22px;
+        font-family: 'Times New Roman', Times, serif;
+
+    }
+</style>
+
+<body>
+    <div class="content">
+        <h1>Landscape</h1>
+        <span>See the beauty of nature</span>
+        <div class="images"></div>
+        <h2>Fibonacci Sequence</h2>
+        <div class="fibo">
+        </div>
+    </div>
+</body>
+
+<script>
+    'use strict';
+
+    //1 part fibonacci 0,1,2,3,5,8,13
+
+    function fib(n) {
+        if (n === 0) {
+            return 0;
+        }
+        if (n === 1 || n === -1) {
+            return 1
+        }
+        if (n < 0) {
+            return Math.pow(-1, n + 1) * fib(Math.abs(n));
+        } else {
+            return fib(n - 1) + fib(n - 2);
+        }
+    }
+
+    function fibo(n) {
+        let a = 1;
+        let b = 1;
+        for (let i = 3; i <= n; i++) {
+            let c = a + b;
+            a = b;
+            b = c;
+        }
+        return b
+    }
+
+    function fiboV(n) {
+        return (n === 0 || n === 1 || n === -1) ? Math.abs(n) : (
+            n > 0 ? fibo(n - 1) + fibo(n - 2) : fibo(n + 2) - fibo(n + 1)
+        )
+    };
+
+    const $fibo = document.querySelector(".fibo");
+
+    const fibPositive = "Positive numbers:   " + fib(0) + ", " + fib(1) + ", " + fib(2) + ", " + fib(3) + ", " +
+        fib(4) + ", " + fib(5) + ", " + fib(6) + ", " + fib(7) + " ...";
+
+    const fibNegative = "Negative numbers:   " + fib(0) + ", " + fib(-1) + ", " + fib(-2) + ", " + fib(-3) + ", " +
+        fib(-4) + ", " + fib(-5) + ", " + fib(-6) + ", " + fib(-7) + " ...";
+
+
+    $fibo.innerHTML = `<p> ${fibPositive} <p>\n\n<p> ${fibNegative} <p>`
+
+
+
+
+    /* 2 part Galery------------------------------------------------*/
+    const arrImages = [
+        'https://i.pinimg.com/originals/fa/5d/4e/fa5d4e8dae822b60eb335741d1a16fe8.jpg',
+        'https://i.pinimg.com/600x315/56/ce/11/56ce1143dbbfa5b52b917daf9546d05e.jpg',
+        'https://i.pinimg.com/originals/fa/5d/4e/fa5d4e8dae822b60eb335741d1a16fe8.jpg',
+        'https://i.pinimg.com/600x315/56/ce/11/56ce1143dbbfa5b52b917daf9546d05e.jpg',
+        'https://i.pinimg.com/originals/fa/5d/4e/fa5d4e8dae822b60eb335741d1a16fe8.jpg',
+        'https://i.pinimg.com/600x315/56/ce/11/56ce1143dbbfa5b52b917daf9546d05e.jpg',
+
+
+    ];
+
+    const $images = document.querySelector(".images");
+
+    function random_item(items) {
+        return items[Math.floor(Math.random() * items.length)];
+    }
+
+    function fillImage(array) {
+        let img = "";
+        for (let i = 0; i < array.length; i++) {
+            img += `<div class="image">
+                <img src="${random_item(array)}"></div>\n`
+
+        }
+        return img
+    };
+
+    $images.innerHTML = fillImage(arrImages);
+
+    const $image = document.querySelectorAll(".image");
+    $image.forEach(function (img) {
+        img.addEventListener("click", changeStyle);
+    })
+
+
+    function changeStyle() {
+        this.style = "display:none";
+    }
+
+
+
+</script>

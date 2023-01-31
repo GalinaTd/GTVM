@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Factorial, Summa and Binary Search</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+</head>
+<style>
+    .container {
+        display: block;
+        width: 400px;
+    }
+</style>
+
+<body>
+    <div class="content">
+
+        <form id="myform" name="myform">
+            <div class="container">
+                <h3>Factorial of number</h3>
+                <input class="num" placeholder="Please enter number">
+                <button type="button" data-action="factorial">Calculate</button>
+                <span class="result"></span>
+            </div>
+            <div class="container">
+                <h3>Sum</h3>
+                <input class="num" placeholder="Please enter number">
+                <button type="button" data-action="sum">Calculate</button>
+                <span class="result"></span>
+            </div>
+            <div class="container">
+                <h3>Binary Search</h3>
+                <div class="list"></div><br>
+                <input class="num" placeholder="Please enter number">
+                <button type="button" data-action="search">Search</button>
+                <span class="result"></span>
+            </div>
+
+        </form>
+
+    </div>
+</body>
+
+<script>
+    'use strict';
+    //1*2*3*....  F= n * (n-1)
+    function factorial(n) {
+        return (n > 0 ? n * factorial(n - 1) : 1);
+    }
+    //console.log("Factorial of number: " + factorial(5));
+
+    //sum with recursion
+    function sumR(n) {
+        return (n > 0 ? n + sumR(n - 1) : 0);
+    }
+
+
+    //sum of all arguments with rest operator
+    function sumAll(...args) {
+        let sum = 0
+        for (let arg of args) {
+            sum += arg;
+        }
+        return sum;
+    }
+    //console.log(sumAll(1, 2, 3, 4, 5))
+
+    const container = document.querySelectorAll(".container");
+
+    container.forEach(function (el) {
+        if (el.querySelector('[data-action="factorial"]')) {
+            el.addEventListener('click', function () {
+                let value = this.querySelector('.num').value;
+                if (value) {
+                    this.querySelector('.result').textContent = `Result: ` + factorial(Number(value));
+                }
+            });
+        }
+        if (el.querySelector('[data-action="sum"]')) {
+            el.addEventListener('click', function () {
+                let value = this.querySelector('.num').value;
+                if (value) {
+                    this.querySelector('.result').textContent = `Result: ` + sumR(Number(value));
+                }
+            });
+        }
+        if (el.querySelector('[data-action="search"]')) {
+            el.addEventListener('click', function () {
+                let value = this.querySelector('.num').value;
+                if (value) {
+                    this.querySelector('.result').textContent = `Index position: ` + binarySearch(Number(value),arrList);
+                }
+            });
+        }
+
+    });
+
+    ///binary search
+
+    const arrList = [1, 12, 33, 40, 45, 56, 60, 80, 95, 100];
+
+    const $list = document.querySelector('.list');
+    $list.textContent = `The list for search: ` + arrList;
+
+    function binarySearch(value, list) {
+        let first = 0;
+        let last = list.length - 1
+        let middle;
+        let position = -1;
+        let found = false;
+
+        while (found === false & first <= last) {
+            middle = Math.floor((first + last) / 2);
+            if (list[middle] === value) {
+                found = true;
+                position = middle;
+            } else if (list[middle] > value) {
+                last = middle - 1;
+            } else {
+                first = middle + 1;
+            }
+        }
+        return position;
+    }
+    console.log(binarySearch(0, arrList));
+
+
+
+
+
+</script>
